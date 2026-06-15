@@ -1,2 +1,0 @@
-# microsmos
-Micro AI Observatory. 
