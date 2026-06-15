@@ -1,0 +1,246 @@
+:root{
+  --bg:#06100b; --screen:#08170f; --panel:#0b1f15; --panel-2:#0e281b;
+  --line:#1e6f45; --line-soft:rgba(67, 215, 134, .22);
+  --text:#d8ffe7; --muted:#78b891; --green:#68ff9a; --green-soft:#9dffbd;
+  --amber:#d8d07c; --danger:#ff8b78; --shadow:rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(76,255,142,.16), transparent 34%),
+    linear-gradient(180deg,#020503 0%, var(--bg) 52%, #030704 100%);
+  color:var(--text);
+  font-family:"IBM Plex Mono","Courier New",Courier,monospace;
+  padding:18px;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none;
+  background:repeating-linear-gradient(180deg, rgba(255,255,255,.025) 0 1px, transparent 1px 4px);
+  opacity:.36; mix-blend-mode:screen;
+}
+.screen-shell{
+  width:min(1280px,100%); margin:0 auto; border:1px solid var(--line); border-radius:22px;
+  background:linear-gradient(180deg,rgba(8,23,15,.96),rgba(4,12,8,.98));
+  box-shadow:0 24px 70px var(--shadow), inset 0 0 42px rgba(89,255,147,.05);
+  padding:18px;
+}
+.terminal-header,.section-title-row,.progress-copy,.data-section,.data-buttons,.run-panel{
+  display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+}
+.terminal-header,.section-title-row,.progress-copy,.data-section{justify-content:space-between}
+.terminal-header{border-bottom:1px solid var(--line-soft); padding:4px 4px 16px; margin-bottom:14px}
+.eyebrow{margin:0 0 5px; color:var(--muted); font-size:12px; letter-spacing:.18em; text-transform:uppercase}
+h1,h2{margin:0; color:var(--green-soft); text-shadow:0 0 16px rgba(104,255,154,.24)}
+h1{font-size:clamp(36px,7vw,80px); line-height:.92; letter-spacing:.08em; text-transform:uppercase}
+h2{font-size:20px; letter-spacing:.05em}
+.subtitle{margin:8px 0 0; color:var(--muted); font-size:13px; max-width:620px; line-height:1.45}
+.run-panel{justify-content:flex-end; background:rgba(0,0,0,.18); border:1px solid var(--line-soft); border-radius:16px; padding:10px}
+#runState{color:var(--green); font-weight:800; letter-spacing:.12em; font-size:12px}
+button{
+  appearance:none; border:1px solid rgba(104,255,154,.36); border-radius:10px;
+  background:linear-gradient(180deg,rgba(20,58,37,.92),rgba(8,28,17,.95));
+  color:var(--text); font-family:inherit; font-size:12px; font-weight:800; padding:9px 12px;
+  cursor:pointer; box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 8px 22px rgba(0,0,0,.24);
+}
+button:hover{border-color:rgba(157,255,189,.7); color:#fff}
+.progress-section,.journal-console,.overview-section,.data-section{
+  border:1px solid var(--line-soft); border-radius:18px;
+  background:linear-gradient(180deg,rgba(12,31,21,.94),rgba(6,18,12,.96));
+  padding:14px; margin-bottom:14px;
+}
+.progress-copy{font-size:13px; color:var(--muted); margin-bottom:10px}
+#dayText{color:var(--green-soft); font-weight:900}
+.progress-track{height:18px; border:1px solid rgba(104,255,154,.33); border-radius:999px; background:#020603; overflow:hidden; box-shadow:inset 0 0 16px rgba(0,0,0,.65)}
+.progress-fill{height:100%; width:0%; background:linear-gradient(90deg,rgba(64,210,112,.75),rgba(157,255,189,.95)); box-shadow:0 0 18px rgba(104,255,154,.45); transition:width .18s linear}
+.small-note{color:var(--muted); font-size:12px; line-height:1.35}
+.journal-grid{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin-top:12px}
+.journal-card,.q-card{
+  min-width:0; border:1px solid rgba(104,255,154,.24); border-radius:14px;
+  background:rgba(0,0,0,.18); box-shadow:inset 0 0 20px rgba(104,255,154,.025);
+}
+.journal-head,.q-head{display:flex; justify-content:space-between; align-items:center; gap:8px; border-bottom:1px solid var(--line-soft); padding:9px 10px}
+.island-letter{display:inline-grid; place-items:center; width:28px; height:28px; border:1px solid rgba(104,255,154,.55); border-radius:8px; color:#021006; background:var(--green); font-weight:900}
+.island-title{font-weight:900; color:var(--green-soft)}
+.status-pill{font-size:11px; color:var(--muted); white-space:nowrap}
+.journal-body{height:230px; overflow-y:auto; padding:9px 10px 11px; scroll-behavior:smooth}
+.journal-line{margin:0 0 9px; color:#dcffe7; line-height:1.35; font-size:12px}
+.journal-line .day{color:var(--amber)}
+.repeat{color:var(--muted)}
+.q-grid{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin-top:12px}
+.q-card{padding-bottom:10px}
+.metric-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; padding:10px}
+.metric{border:1px solid rgba(104,255,154,.15); border-radius:10px; padding:7px; background:rgba(3,12,7,.56); min-height:48px}
+.metric span{display:block; color:var(--muted); font-size:10px; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.metric b{display:block; color:var(--green-soft); font-size:16px; margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.metric.wide{grid-column:1/-1}
+.bars{display:grid; gap:5px; padding:0 10px 10px}
+.bar-row{display:grid; grid-template-columns:74px 1fr 38px; gap:7px; align-items:center; font-size:11px; color:var(--muted)}
+.bar-track{height:7px; background:#020603; border-radius:999px; overflow:hidden; border:1px solid rgba(104,255,154,.15)}
+.bar-fill{height:100%; background:var(--green); opacity:.82}
+.data-section{margin-bottom:14px}
+.data-copy{display:flex; flex-direction:column; gap:4px; color:var(--muted); font-size:12px}
+.data-copy strong{color:var(--green-soft); font-size:15px}
+@media(max-width:1100px){.journal-grid,.q-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.journal-body{height:210px}}
+@media(max-width:640px){body{padding:10px}.screen-shell{padding:12px; border-radius:16px}.journal-grid,.q-grid{grid-template-columns:1fr}.terminal-header{align-items:flex-start}.run-panel,.data-buttons{width:100%; justify-content:stretch}.run-panel button,.data-buttons button{flex:1}.journal-body{height:190px}.metric-grid{grid-template-columns:1fr 1fr}}
+
+/* Update: three agents per island + calmer journal movement. */
+.journal-body{scroll-behavior:auto; overscroll-behavior:contain;}
+.agent-tag{display:inline-block; min-width:70px; color:var(--green); font-weight:800; letter-spacing:.04em;}
+.agent-grid{display:grid; gap:5px; padding:0 10px 10px;}
+.agent-mini{display:grid; grid-template-columns:76px 1fr 54px 54px; gap:6px; align-items:center; border:1px solid rgba(104,255,154,.16); border-radius:8px; padding:5px 6px; color:#dfffe8; font-size:11px; background:rgba(104,255,154,.035);}
+.agent-mini b{color:var(--green);}
+.agent-mini span{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+@media(max-width:640px){.agent-mini{grid-template-columns:70px 1fr 48px 48px; font-size:10px}.agent-tag{min-width:62px}}
+
+
+/* UI-only revision: compact island-level journals and aggregate average grid. */
+.overview-section{background:linear-gradient(180deg,rgba(10,34,22,.96),rgba(5,16,10,.98));}
+.journal-grid{grid-template-columns:repeat(5,minmax(0,1fr));}
+.compact-journal-card .journal-head{padding:8px 9px;}
+.compact-journal-card .status-pill{font-size:10px; color:var(--green-soft);}
+.journal-avg-strip{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:5px; padding:7px 9px; border-bottom:1px solid var(--line-soft); color:var(--muted); font-size:10px; letter-spacing:.05em;}
+.journal-avg-strip span{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.compact-journal-card .journal-body{height:160px;}
+.compact-journal-card .journal-line{font-size:11px; margin-bottom:7px; line-height:1.32;}
+.q-card .metric-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+@media(max-width:1100px){.compact-journal-card .journal-body{height:155px}}
+@media(max-width:640px){.compact-journal-card .journal-body{height:145px}.journal-avg-strip{font-size:9px}}
+
+/* UI-only journal module revision: single sampled spotlight below exports. */
+.section-description{margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.45; max-width:760px}
+.journal-spotlight-grid{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr); gap:12px; margin-top:12px}
+.spotlight-card{min-height:260px; overflow:hidden}
+.spotlight-head{padding:10px 12px}
+.spotlight-strip{grid-template-columns:repeat(5,minmax(0,1fr)); font-size:10px; padding:8px 12px}
+.spotlight-body{padding:16px 16px 18px; min-height:170px; display:flex; flex-direction:column; justify-content:space-between; gap:18px}
+.spotlight-entry{margin:0; color:#e7ffed; font-size:clamp(17px,2.1vw,26px); line-height:1.48; letter-spacing:.01em}
+.spotlight-entry mark{background:rgba(216,208,124,.18); color:#fff6a8; border:1px solid rgba(216,208,124,.28); border-radius:6px; padding:0 .14em; box-shadow:0 0 12px rgba(216,208,124,.12)}
+.vocab-row{display:flex; align-items:center; gap:7px; flex-wrap:wrap; border-top:1px solid var(--line-soft); padding-top:10px}
+.vocab-label{color:var(--muted); font-size:10px; letter-spacing:.12em; text-transform:uppercase; margin-right:3px}
+.vocab-chip{display:inline-flex; align-items:center; min-height:24px; padding:4px 8px; border:1px solid rgba(216,208,124,.33); border-radius:999px; background:rgba(216,208,124,.08); color:#fff0a8; font-size:11px; font-weight:800}
+.muted-chip{border-color:rgba(104,255,154,.2); color:var(--muted); background:rgba(104,255,154,.04)}
+.sample-rail{display:grid; gap:8px; min-width:0}
+.sample-card{border:1px solid rgba(104,255,154,.17); border-radius:12px; background:rgba(0,0,0,.16); padding:8px 9px; color:var(--muted); min-width:0; opacity:.78; transition:border-color .18s ease, opacity .18s ease, transform .18s ease}
+.sample-card.active{border-color:rgba(157,255,189,.68); opacity:1; transform:translateX(-2px); background:rgba(104,255,154,.055)}
+.sample-card div{display:flex; align-items:center; gap:7px; font-size:11px; color:var(--green-soft); margin-bottom:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.sample-card p{margin:0; font-size:11px; line-height:1.35; color:#d8ffe7; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.mini-letter{width:22px; height:22px; border-radius:6px; font-size:11px}
+@media(max-width:900px){.journal-spotlight-grid{grid-template-columns:1fr}.sample-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.spotlight-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.spotlight-entry{font-size:20px}}
+@media(max-width:640px){.sample-rail{grid-template-columns:1fr}.spotlight-body{padding:13px; min-height:190px}.spotlight-entry{font-size:18px}.spotlight-strip{grid-template-columns:1fr 1fr}.section-description{font-size:12px}}
+
+
+/* UI-only bottom metrics drawer: keeps averages available without crowding the observation console. */
+.metrics-drawer{margin-top:8px; margin-bottom:0;}
+.metrics-summary{list-style:none; display:flex; justify-content:space-between; align-items:center; gap:12px; cursor:pointer; border:1px solid rgba(104,255,154,.28); border-radius:14px; padding:12px 14px; background:rgba(0,0,0,.18); color:var(--green-soft); font-weight:900; letter-spacing:.04em;}
+.metrics-summary::-webkit-details-marker{display:none}
+.metrics-summary::after{content:"▾"; color:var(--green); font-size:16px; transition:transform .18s ease;}
+.metrics-drawer[open] .metrics-summary::after{transform:rotate(180deg)}
+.metrics-summary small{color:var(--muted); font-size:11px; font-weight:700; letter-spacing:0; text-align:right;}
+.metrics-title-row{margin-top:14px; padding-top:2px;}
+.metrics-drawer:not([open]){padding:10px;}
+.metrics-drawer[open]{padding:14px;}
+@media(max-width:640px){.metrics-summary{align-items:flex-start; flex-direction:column}.metrics-summary::after{position:absolute; right:26px}.metrics-summary small{text-align:left}}
+
+
+/* Bottom README drawer: concise project context without crowding the main observation console. */
+.readme-drawer{
+  border:1px solid var(--line-soft);
+  border-radius:18px;
+  background:linear-gradient(180deg,rgba(12,31,21,.94),rgba(6,18,12,.96));
+  padding:10px;
+  margin-top:14px;
+}
+.readme-summary{
+  list-style:none;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  cursor:pointer;
+  border:1px solid rgba(104,255,154,.28);
+  border-radius:14px;
+  padding:12px 14px;
+  background:rgba(0,0,0,.18);
+  color:var(--green-soft);
+  font-weight:900;
+  letter-spacing:.04em;
+}
+.readme-summary::-webkit-details-marker{display:none}
+.readme-summary::after{content:"▾"; color:var(--green); font-size:16px; transition:transform .18s ease;}
+.readme-drawer[open] .readme-summary::after{transform:rotate(180deg)}
+.readme-summary small{color:var(--muted); font-size:11px; font-weight:700; letter-spacing:0; text-align:right;}
+.readme-panel{
+  margin-top:14px;
+  border:1px solid rgba(104,255,154,.18);
+  border-radius:14px;
+  padding:14px;
+  background:rgba(0,0,0,.16);
+  color:var(--text);
+  line-height:1.5;
+  font-size:13px;
+}
+.readme-panel p{margin:9px 0}
+.readme-panel a{color:var(--green-soft); text-decoration:none; border-bottom:1px solid rgba(157,255,189,.35)}
+.readme-panel a:hover{color:#fff; border-bottom-color:#fff}
+.code-links{color:var(--muted)}
+.app-footer{
+  margin-top:12px;
+  padding:10px 4px 2px;
+  color:var(--muted);
+  text-align:center;
+  font-size:11px;
+  letter-spacing:.06em;
+}
+@media(max-width:640px){.readme-summary{align-items:flex-start; flex-direction:column}.readme-summary::after{position:absolute; right:26px}.readme-summary small{text-align:left}}
+
+
+/* UI-only journal pause control: discreet reader control for the spotlight feed. */
+.journal-tools{display:flex; flex-direction:column; align-items:flex-end; gap:8px; max-width:300px}
+.journal-pause-btn{
+  padding:7px 11px;
+  border-radius:999px;
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--green-soft);
+  border-color:rgba(104,255,154,.34);
+  background:linear-gradient(180deg,rgba(10,36,23,.72),rgba(2,10,6,.88));
+  box-shadow:inset 0 0 16px rgba(104,255,154,.035),0 0 10px rgba(104,255,154,.06);
+}
+.journal-pause-btn:hover{border-color:rgba(157,255,189,.72); color:#fff}
+@media(max-width:720px){.journal-tools{align-items:flex-start; max-width:none; width:100%}.journal-pause-btn{align-self:flex-start}}
+
+/* UI-only revision: place day tracker stats inside the top running bar. */
+.run-panel{
+  align-items:stretch;
+  min-width:min(540px,100%);
+  flex:1 1 420px;
+}
+.run-progress{
+  flex:1 1 320px;
+  min-width:min(320px,100%);
+}
+.run-controls{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.run-panel .progress-copy{
+  margin-bottom:8px;
+  gap:10px;
+  justify-content:flex-start;
+}
+.run-panel .progress-track{
+  height:14px;
+}
+@media(max-width:760px){
+  .run-panel{width:100%; min-width:0; flex-direction:column; align-items:stretch;}
+  .run-progress{min-width:0; width:100%;}
+  .run-controls{justify-content:stretch; width:100%;}
+  .run-controls button{flex:1;}
+  .run-panel .progress-copy{flex-direction:column; align-items:flex-start; gap:4px;}
+}
