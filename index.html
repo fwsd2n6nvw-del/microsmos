@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Microsmos</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="screen-shell">
+    <header class="terminal-header cosmic-header">
+      <h1 class="sr-only">MICROSMOS v0.5</h1>
+      <div class="hero-card" aria-label="Microsmos v0.5 cosmic header">
+        <img src="./microsmos-header.png" alt="MICROSMOS v0.5 cosmic title with planet, ten moons, and a starburst" />
+      </div>
+      <div class="run-panel" aria-label="Run status and simulation progress">
+        <div class="run-progress">
+          <div class="progress-copy">
+            <span id="dayText">Day 1 / 500</span>
+            <span id="runSummary">Initializing ten islands A-J</span>
+          </div>
+          <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+        </div>
+        <div class="run-controls">
+          <span id="runState">RUNNING</span>
+          <button id="pauseBtn" type="button">Pause</button>
+          <button id="resetBtn" type="button">Reset</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="journal-console" aria-labelledby="journalTitle">
+      <div class="section-title-row">
+        <div>
+          <p class="eyebrow">OBSERVATION FEED</p>
+          <h2 id="journalTitle">Journal</h2>
+          <p class="section-description">Live agent notes from the current run.</p>
+        </div>
+        <div class="journal-tools" aria-label="Journal controls">
+          <button id="journalPauseBtn" class="journal-pause-btn" type="button">Pause Feed</button>
+          <div class="small-note">Refreshes gently while running</div>
+        </div>
+      </div>
+      <div id="journalGrid" class="journal-grid journal-spotlight-grid" aria-live="polite"></div>
+    </section>
+
+    <div class="cosmic-divider" aria-hidden="true">
+      <span class="divider-line"></span>
+      <div class="divider-orbit">
+        <span class="divider-moon moon-sm"></span>
+        <span class="divider-moon moon-md"></span>
+        <span class="divider-planet"></span>
+        <span class="divider-moon moon-md warm"></span>
+        <span class="divider-moon moon-sm icy"></span>
+      </div>
+      <span class="divider-line"></span>
+    </div>
+
+    <section class="data-section data-console" aria-label="Data exports">
+      <div class="data-header-row">
+        <div>
+          <p class="eyebrow">LOCAL RUN DATA</p>
+          <h2>Export Console</h2>
+        </div>
+        <span id="exportRunId" class="status-pill">RUN ID LOADING</span>
+      </div>
+      <div class="data-stats-grid" aria-label="Current logged data totals">
+        <div class="data-stat-card">
+          <span>Daily Agent Records</span>
+          <b id="dailyRecordCount">0</b>
+        </div>
+        <div class="data-stat-card">
+          <span>Rolling Island Records</span>
+          <b id="rollingRecordCount">0</b>
+        </div>
+        <div class="data-stat-card wide-data-stat">
+          <span>Current Log Status</span>
+          <b id="logCount">0 records logged</b>
+        </div>
+      </div>
+      <div class="data-action-row">
+        <p class="small-note">Exports are saved locally from this browser session.</p>
+        <div class="data-buttons">
+          <button id="downloadJsonBtn" type="button">Download JSON</button>
+          <button id="downloadCsvBtn" type="button">Download Daily CSV</button>
+        </div>
+      </div>
+    </section>
+
+    <details class="overview-section metrics-drawer" aria-labelledby="overviewTitle">
+      <summary class="metrics-summary">
+        <span>Show Island Metrics</span>
+        <small>Optional Q averages and 3-day learning indicators</small>
+      </summary>
+      <div class="section-title-row metrics-title-row">
+        <div>
+          <p class="eyebrow">ISLAND AVERAGE GRID</p>
+          <h2 id="overviewTitle">Per-Island Q + Learning Averages</h2>
+        </div>
+        <div class="small-note">Aggregated from Maya, Pollock, and Rembrandt. Hidden by default to keep the main console clean.</div>
+      </div>
+      <div id="qGrid" class="q-grid"></div>
+    </details>
+
+
+    <details class="q-drive-drawer" aria-labelledby="qDriveTitle">
+      <summary class="q-drive-summary">
+        <span>Adjust Agent Q Drives</span>
+        <small>Instant per-agent action nudges for gather, move, rest, socialize, and observe</small>
+      </summary>
+      <div class="q-drive-title-row">
+        <div>
+          <p class="eyebrow">MANUAL Q DRIVE OVERRIDE</p>
+          <h2 id="qDriveTitle">Agent Drive Controls</h2>
+          <p class="section-description">Open an agent, move a simple slider, and the Q action drive changes immediately.</p>
+        </div>
+        <div class="q-drive-warning">Warning: altering the Q network can cause poor agent behavior, unstable habits, or distorted learning results.</div>
+      </div>
+      <div id="qDriveGrid" class="q-drive-grid" aria-label="Agent Q drive controls"></div>
+    </details>
+
+    <details class="readme-drawer" aria-labelledby="readmeTitle">
+      <summary class="readme-summary">
+        <span>Display README</span>
+        <small>Short project overview, use terms, and code links</small>
+      </summary>
+      <div class="readme-panel">
+        <p class="eyebrow">PROJECT README</p>
+        <h2 id="readmeTitle">Microsmos</h2>
+        <p>Microsmos is a micro AI observatory for learning agents: a retro, browser-based simulation focused on journal language, Q patterns, memory, stress, and divergent behavior signals.</p>
+        <p>Each island runs as a dynamic grid-based environment where agents respond to resources, memory, drought, and social signals.</p>
+        <p>This project was designed by Jesse Glick, a new learner in software design and computer science. The AI model was first implemented in the earlier app <em>Jungle Island</em>; this version refines the concept into a cleaner educational research tool.</p>
+        <p>System design and direction are by Jesse Glick. All material and implementation are AI-assisted.</p>
+        <p>Free to use for educational and scientific purposes with credit.</p>
+        <p class="code-links">Code: <a href="./index.html">index.html</a> · <a href="./style.css">style.css</a> · <a href="./app.js">app.js</a></p>
+      </div>
+    </details>
+
+    <footer class="app-footer">© 2026 • Microsmos v0.5 • Educational / scientific use with credit</footer>
+  </main>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
